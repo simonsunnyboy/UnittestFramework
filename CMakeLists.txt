@@ -24,6 +24,7 @@ add_library(unittest
 	src/unittest.h
 	README.md
 	Doxyfile
+    .gitignore
 )
 
 # an example test object with implemented unittest
