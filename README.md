@@ -28,11 +28,11 @@ executable.
 
 Use the macros defined in unittest.h and link your project with unittest.c
 
-Wrap the Test with UT_BEGIN and UT_END macros for proper structuring.
+Wrap the Test with UT_BEGIN() and UT_END() macros for proper structuring.
 Most commands should describe themselves.
 
 It is allowed to start another test for entirely different content with the
-UT_BEGIN macro if the last test finished with the UT_END macro.
+UT_BEGIN() macro if the last test finished with the UT_END() macro.
 
 ## The MIT License (MIT)
 

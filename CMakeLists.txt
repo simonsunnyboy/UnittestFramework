@@ -18,7 +18,7 @@ include_directories(
     src/test_object
 )
 
-# the main library to link with project - projects should only use unittest.h
+# the main library to link with project - projects should only use unittest.h and unittest.c
 add_library(unittest
 	src/unittest.c
 	src/unittest.h
