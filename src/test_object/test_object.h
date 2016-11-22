@@ -9,6 +9,11 @@
  * @brief  API for example test object
  */
 
+/**
+ * @addtogroup Example_Unittest
+ * @{
+ */
+
 #ifndef TEST_OBJECT_H
     #define TEST_OBJECT_H
 
@@ -18,3 +23,4 @@
 
 #endif
 
+/** @} */

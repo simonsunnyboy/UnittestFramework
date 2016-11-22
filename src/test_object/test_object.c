@@ -9,6 +9,11 @@
  * @brief  example test object implementation
  */
 
+/**
+ * @addtogroup Example_Unittest
+ * @{
+ */
+
 #include <stdint.h>
 
 /**
@@ -27,4 +32,4 @@ int16_t Max(const int16_t a, const int16_t b)
     return b;
 }
 
-
+/** @} */

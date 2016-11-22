@@ -35,3 +35,11 @@ add_executable(example_unittest
 )
 target_link_libraries(example_unittest unittest)
 
+# generate Doxygen output
+add_custom_target(Doxygen
+    COMMAND doxygen ${PROJECT_SOURCE_DIR}/Doxyfile
+    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
+    DEPENDS ${PROJECT_SOURCE_DIR}/Doxyfile unittest example_unittest
+)
+
+

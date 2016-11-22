@@ -9,6 +9,11 @@
  * @brief  example unittest for the test object example in test_object.c
  */
 
+/**
+ * @addtogroup Example_Unittest
+ * @{
+ */
+
 #include <stdint.h>
 
 #include "test_object.h"   /* object to test */
@@ -46,3 +51,5 @@ int main(int argc, char **argv)
 
     return UT_Result;
 }
+
+/** @} */

@@ -6,7 +6,9 @@
  *
  * The MIT License applies. Check COPYING for details.
  *
- * @brief  APi for unittest framework
+ * @brief   API for unittest framework
+ * @details The end user shall use the macros only. They wrap the functionality
+ *          in a systematic way.
  */
 
 /**
