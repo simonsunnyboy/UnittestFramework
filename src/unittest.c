@@ -10,6 +10,11 @@
  * @details The functions are meant to be called through the associated macros.
  */
 
+/**
+ * @addtogroup ASMSoftware_Unittest
+ * @{
+ */
+
 #include <stdint.h>
 #include <stdbool.h>
 #include <stdio.h>
@@ -19,14 +24,18 @@
  * internal variables
  *-----------------------------------------------
  */
+
+/**
+ * @brief internal unittest state
+ */
 typedef struct
 {
-    int test_nr;
-    int passed;
-    int failed;
+    int test_nr;   /*!< number of testcases for testcase headlines */
+    int passed;    /*!< number of passed tests */
+    int failed;    /*!< number of failed tests */
 } Unittest;
 
-static Unittest UT;  /*!< internal unittest state */
+static Unittest UT;  /*!< tracks the internal unittest state */
 
 time_t rawtime;
 struct tm * timeinfo;
@@ -135,3 +144,5 @@ void UT_SetComment(const char *comment)
     (void)comment;
     return;
 }
+
+/** @} */

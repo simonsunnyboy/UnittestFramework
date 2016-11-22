@@ -6,7 +6,12 @@
  *
  * The MIT License applies. Check COPYING for details.
  *
- * @brief  test implementation of using the framework
+ * @brief  APi for unittest framework
+ */
+
+/**
+ * @addtogroup ASMSoftware_Unittest
+ * @{
  */
 
 #ifndef UNITTEST_H
@@ -29,10 +34,10 @@
     #define UT_END()             UT_End()                        /*!< end of unittest output */
 
     #define UT_TESTCASE(headline) UT_Testcase(headline)          /*!< start of test case */
-    #define UT_DESCRIPTION(text)  UT_Description(text)           /*! description for testcase */
+    #define UT_DESCRIPTION(text)  UT_Description(text)           /*!< description for testcase */
 
-    #define UT_PRECONDITION(cond) cond; UT_Precondition(#cond)  /*!< set precondition for test case */
-    #define UT_TEST(cond)         UT_Test((cond), #cond)        /*!< test and document condition */
+    #define UT_PRECONDITION(cond) cond; UT_Precondition(#cond)   /*!< set precondition for test case */
+    #define UT_TEST(cond)         UT_Test((cond), #cond)         /*!< test and document condition */
 
     #define UT_COMMENT(comment)   UT_SetComment(comment)         /*!< annotate test or precondition with commentary */
 
@@ -50,3 +55,5 @@
     void UT_SetComment(const char *comment);
 
 #endif
+
+/** @} */
