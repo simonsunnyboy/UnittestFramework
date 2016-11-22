@@ -28,9 +28,10 @@ add_library(unittest
 )
 
 # an example test object with implemented unittest
-add_executable(test_object
+add_executable(example_unittest
 	src/test_object/test_object.c
 	src/test_object/test_object.h
+    src/test_object/example_unittest.c
 )
-target_link_libraries(test_object unittest)
+target_link_libraries(example_unittest unittest)
 
