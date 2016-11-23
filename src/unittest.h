@@ -23,7 +23,7 @@
     #include <stdbool.h>
 
     /**
-     * @brief return code to be used by the caller, 0 for success, number of failed test otherwise
+     * @brief return code to be used by the caller, 0 for success, number of overall failed test otherwise
      */
     extern int UT_Result;
 
@@ -32,16 +32,52 @@
      *-----------------------------------------------
      */
 
-    #define UT_BEGIN(headline)   UT_Begin(headline, __FILE__)    /*!< start of unittest output */
-    #define UT_END()             UT_End()                        /*!< end of unittest output */
+    /**
+     * @brief   starts a unittest
+     * @details - The originating filename, headline and current date of test execution are documented.
+     *          - The test must close with UT_END()
+     * @param   headline
+     */
+    #define UT_BEGIN(headline)   UT_Begin(headline, __FILE__)
 
-    #define UT_TESTCASE(headline) UT_Testcase(headline)          /*!< start of test case */
-    #define UT_DESCRIPTION(text)  UT_Description(text)           /*!< description for testcase */
+    /**
+     * @brief   ends a unittest output with statistical output
+     * @details After issuing UT_END, a different file/function may start another unittest with UT_BEGIN()
+     */
+    #define UT_END()             UT_End()
 
-    #define UT_PRECONDITION(cond) cond; UT_Precondition(#cond)   /*!< set precondition for test case */
-    #define UT_TEST(cond)         UT_Test((cond), #cond)         /*!< test and document condition */
+    /**
+     * @brief   documents a testcase with a headline
+     * @details All testcase headlines are numbered automatically by the framework. The numbering is reset with UT_BEGIN()
+     * @param   tc_headline
+     */
+    #define UT_TESTCASE(tc_headline) UT_Testcase(tc_headline)
 
-    #define UT_COMMENT(comment)   UT_SetComment(comment)         /*!< annotate test or precondition with commentary */
+    /**
+     * @brief documents a description for the last started testcase
+     * @param text
+     */
+    #define UT_DESCRIPTION(text)  UT_Description(text)
+
+    /**
+     * @brief   executes and documents the given precondition
+     * @details Use this to document stimuli to your test object.
+     * @param   precond
+     */
+    #define UT_PRECONDITION(precond) (precond); UT_Precondition(#precond)
+
+    /**
+     * @brief     evaluates the given test condition and counts success or failure
+     * @details   The given condition is documented through a description.
+     * @param     cond is a boolean test condition which should evaluate to true to pass the test
+     */
+    #define UT_TEST(cond)         UT_Test((cond), #cond)
+
+    /**
+     * @brief     sets a commentary string for the next UT_TEST() command
+     * @param     comment
+     */
+    #define UT_COMMENT(comment)   UT_SetComment(comment)
 
     /*-----------------------------------------------
      * internal definitions

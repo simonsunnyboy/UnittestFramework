@@ -50,7 +50,12 @@ static struct tm * timeinfo;  /*!< decoding information for timestamp */
 
 int UT_Result = 0;
 
-
+/**
+ * @brief UT_Begin is an internal function
+ * @see   UT_BEGIN
+ * @param headline
+ * @param filename
+ */
 void UT_Begin(const char *headline, const char *filename)
 {
     UT.passed = 0;
@@ -71,7 +76,10 @@ void UT_Begin(const char *headline, const char *filename)
     printf("\n");
 }
 
-
+/**
+ * @brief UT_End is an internal function
+ * @see   UT_END
+ */
 void UT_End(void)
 {
     /* compute success rate: */
@@ -92,7 +100,7 @@ void UT_End(void)
     if(UT.failed != 0)
     {
         printf("Test result NOT OK!\n");
-        UT_Result = UT.failed;
+        UT_Result += UT.failed;          /* overall sum of failed testcases */
     }
     else
     {
@@ -101,7 +109,11 @@ void UT_End(void)
     return;
 }
 
-
+/**
+ * @brief UT_Testcase is an internal function
+ * @see   UT_TESTCASE
+ * @param headline
+ */
 void UT_Testcase(const char *headline)
 {
     printf("== %d. %s\n\n", UT.test_nr, headline);
@@ -109,23 +121,37 @@ void UT_Testcase(const char *headline)
     return;
 }
 
+/**
+ * @brief UT_Description is an internal function
+ * @see UT_DESCRIPTION
+ * @param desc
+ */
 void UT_Description(const char *desc)
 {
     printf("%s\n\n", desc);
     return;
 }
 
+/**
+ * @brief UT_Precondition is an internal function
+ * @see UT_PRECONDITION
+ * @param cond_desc
+ */
 void UT_Precondition(const char *cond_desc)
 {
     printf("PRECONDITION: %s\n", cond_desc);
     return;
 }
 
+/**
+ * @brief UT_Test is an internal function
+ * @see UT_TEST
+ * @param test_cond
+ * @param cond_desc
+ */
 void UT_Test(const bool test_cond, const char *cond_desc)
 {     
     printf("TEST: %s   ", cond_desc);
-
-
 
     if(test_cond == true)
     {
@@ -149,11 +175,20 @@ void UT_Test(const bool test_cond, const char *cond_desc)
     return;
 }
 
+
+/**
+ * @brief UT_SetComment is an internal function
+ * @see UT_COMMENT
+ * @param comment
+ */
 void UT_SetComment(const char *comment)
 {
-    #define MIN(x, y) (((x) < (y)) ? (x) : (y))
+    size_t len_comment = strlen(comment);
 
-    const size_t len_comment = MIN(sizeof(UT.comment), strlen(comment));
+    if(sizeof(UT.comment) < len_comment)
+    {
+        len_comment = sizeof(UT.comment);
+    }
 
     memset(UT.comment, '\0',sizeof(UT.comment) ); // empty comment
     strncpy(UT.comment, comment, len_comment);  // copy string
