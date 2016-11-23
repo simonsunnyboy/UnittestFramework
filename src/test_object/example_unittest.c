@@ -15,7 +15,8 @@
  */
 
 #include <stdint.h>
-
+#include <stdio.h>
+#include <string.h>
 #include "test_object.h"   /* object to test */
 
 #include "unittest.h"      /* unittest framework access */
@@ -46,6 +47,29 @@ int main(int argc, char **argv)
     UT_PRECONDITION(b = 20);
     UT_COMMENT("a > b");
     UT_TEST(Max(a,b) == 100);
+
+    for(b = -32000; b < 32000; b += 1600)
+    {
+        char comment_str[50];
+
+        UT_TESTCASE("Example with fix a and moving b");
+
+        UT_PRECONDITION(a = 5200);
+
+        sprintf(comment_str,"b = %d", b);
+
+        UT_PRECONDITION_STR(comment_str);
+
+        if(a < b)
+        {
+            UT_TEST(Max(a,b) == b);
+        }
+        else
+        {
+            UT_TEST(Max(a,b) == a);
+        }
+
+    }
 
     UT_END();
 

@@ -34,8 +34,8 @@
 
     /**
      * @brief   starts a unittest
-     * @details - The originating filename, headline and current date of test execution are documented.
-     *          - The test must close with UT_END()
+     * @details The originating filename, headline and current date of test execution are documented.
+     *          The test must close with UT_END()
      * @param   headline
      */
     #define UT_BEGIN(headline)   UT_Begin(headline, __FILE__)
@@ -61,10 +61,18 @@
 
     /**
      * @brief   executes and documents the given precondition
-     * @details Use this to document stimuli to your test object.
+     * @details Use this to document simple stimuli to your test object such as setting a single variable
      * @param   precond
      */
     #define UT_PRECONDITION(precond) (precond); UT_Precondition(#precond)
+
+    /**
+     * @brief   documents any preconditions as a string
+     * @details Use this to document stimuli to your test object that are more elaborate then setting a variable.
+     * @warning This command does not execute any preconditions. For documentary purpose only!
+     * @param   precond_str
+     */
+    #define UT_PRECONDITION_STR(precond_str)   UT_Precondition(precond_str)
 
     /**
      * @brief     evaluates the given test condition and counts success or failure
@@ -90,7 +98,7 @@
     void UT_Description(const char *desc);
     void UT_Precondition(const char *cond_desc);
     void UT_Test(const bool test_cond, const char *cond_desc);
-    void UT_SetComment(const char *comment);
+    void UT_SetComment(const char *comment);    
 
 #endif
 
