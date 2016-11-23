@@ -18,6 +18,8 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
 #include <time.h>
 
 /*-----------------------------------------------
@@ -30,15 +32,16 @@
  */
 typedef struct
 {
-    int test_nr;   /*!< number of testcases for testcase headlines */
-    int passed;    /*!< number of passed tests */
-    int failed;    /*!< number of failed tests */
+    int16_t test_nr;   /*!< number of testcases for testcase headlines */
+    int16_t passed;    /*!< number of passed tests */
+    int16_t failed;    /*!< number of failed tests */
+    char comment[512]; /*!< temporary storage for testcase comment */
 } Unittest;
 
 static Unittest UT;  /*!< tracks the internal unittest state */
 
-time_t rawtime;
-struct tm * timeinfo;
+static time_t rawtime;        /*!< internal variable to create time stamps */
+static struct tm * timeinfo;  /*!< decoding information for timestamp */
 
 /*-----------------------------------------------
  * public variables
@@ -108,7 +111,7 @@ void UT_Testcase(const char *headline)
 
 void UT_Description(const char *desc)
 {
-    printf("%s\n", desc);
+    printf("%s\n\n", desc);
     return;
 }
 
@@ -119,8 +122,10 @@ void UT_Precondition(const char *cond_desc)
 }
 
 void UT_Test(const bool test_cond, const char *cond_desc)
-{
+{     
     printf("TEST: %s   ", cond_desc);
+
+
 
     if(test_cond == true)
     {
@@ -133,6 +138,12 @@ void UT_Test(const bool test_cond, const char *cond_desc)
         printf("failed\n");
     }
 
+    if(strlen(UT.comment) > 0)
+    {
+        printf("\"%s\"\n\n", UT.comment);
+        memset(UT.comment, '\0',sizeof(UT.comment) ); // empty comment after processing
+    }
+
     printf("\n");
 
     return;
@@ -140,8 +151,13 @@ void UT_Test(const bool test_cond, const char *cond_desc)
 
 void UT_SetComment(const char *comment)
 {
-    /*! @todo handle comment */
-    (void)comment;
+    #define MIN(x, y) (((x) < (y)) ? (x) : (y))
+
+    const size_t len_comment = MIN(sizeof(UT.comment), strlen(comment));
+
+    memset(UT.comment, '\0',sizeof(UT.comment) ); // empty comment
+    strncpy(UT.comment, comment, len_comment);  // copy string
+
     return;
 }
 
