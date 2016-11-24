@@ -13,6 +13,10 @@ if( NOT CMAKE_BUILD_TYPE )
        FORCE )
 endif()
 
+# additional flags for GNU Coverage
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -g -fprofile-arcs -ftest-coverage")
+set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -fprofile-arcs -lgcov")
+
 include_directories(
     src
     src/test_object
@@ -35,6 +39,7 @@ add_executable(example_unittest
 )
 target_link_libraries(example_unittest unittest)
 
+
 # generate Doxygen output
 add_custom_target(Doxygen
     COMMAND doxygen ${PROJECT_SOURCE_DIR}/Doxyfile
@@ -42,4 +47,9 @@ add_custom_target(Doxygen
     DEPENDS ${PROJECT_SOURCE_DIR}/Doxyfile unittest example_unittest
 )
 
+add_custom_target(gcov
+    COMMAND ${PROJECT_SOURCE_DIR}/generate_coverage.sh ${PROJECT_BUILD_DIR}
+    WORKING_DIRECTORY ${PROJECT_BUILD_DIR}
+    DEPENDS example_unittest
+)
 
