@@ -73,7 +73,11 @@ int main(int argc, char **argv)
 
     UT_END();
 
-    return UT_Result;
+    #ifdef GCOV_ENABLED
+        return 0;
+    #else
+        return UT_Result;
+    #endif
 }
 
 /** @} */

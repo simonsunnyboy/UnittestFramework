@@ -8,14 +8,24 @@ cmake_minimum_required(VERSION 2.8)
 project(Unittest)
 
 if( NOT CMAKE_BUILD_TYPE )
-  set( CMAKE_BUILD_TYPE Debug CACHE STRING
-       "Choose the type of build, options are: None Debug Release RelWithDebInfo MinSizeRel."
+  set( CMAKE_BUILD_TYPE Coverage CACHE STRING
+       "Choose the type of build, options are: None Coverage Debug Release RelWithDebInfo MinSizeRel."
        FORCE )
 endif()
 
-# additional flags for GNU Coverage
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -g -fprofile-arcs -ftest-coverage")
-set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -fprofile-arcs -lgcov")
+if (CMAKE_BUILD_TYPE STREQUAL "Coverage")
+    message("gcov enabled")
+    add_definitions("-DGCOV_ENABLED")
+endif()
+
+
+# GNU coverage
+set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR})
+if(CMAKE_COMPILER_IS_GNUCXX)
+    include(CodeCoverage)
+    message("coverage target created...")
+    setup_target_for_coverage(example_unittest_coverage example_unittest coverage)
+endif()
 
 include_directories(
     src
@@ -37,7 +47,7 @@ add_executable(example_unittest
 	src/test_object/test_object.h
     src/test_object/example_unittest.c
 )
-target_link_libraries(example_unittest unittest)
+target_link_libraries(example_unittest unittest -lgcov)
 
 
 # generate Doxygen output
@@ -46,10 +56,3 @@ add_custom_target(Doxygen
     WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
     DEPENDS ${PROJECT_SOURCE_DIR}/Doxyfile unittest example_unittest
 )
-
-add_custom_target(gcov
-    COMMAND ${PROJECT_SOURCE_DIR}/generate_coverage.sh ${PROJECT_BUILD_DIR}
-    WORKING_DIRECTORY ${PROJECT_BUILD_DIR}
-    DEPENDS example_unittest
-)
-
