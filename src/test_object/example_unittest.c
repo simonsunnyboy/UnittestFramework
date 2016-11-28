@@ -32,6 +32,8 @@ int main(int argc, char **argv)
 {
     int16_t a,b;
 
+    UT_ENABLE_HTML();
+
     UT_BEGIN("Example for ASM Software Unittest Framework");
 
     UT_TESTCASE("Hand picked examples");

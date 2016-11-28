@@ -87,6 +87,18 @@
      */
     #define UT_COMMENT(comment)   UT_SetComment(comment)
 
+    /**
+     * @brief    enables HTML output
+     * @details  This should be the first command issued to the framework if desired.
+     */
+    #define UT_ENABLE_HTML()      UT_EnableHtml(NULL)
+
+    /**
+     * @brief    enables HTML output and links with a given CSS stylesheet definition
+     * @details  This should be the first command issued to the framework if desired.
+     */
+    #define UT_ENABLE_HTML_WITH_CSS(css)  UT_EnableHtml(css)
+
     /*-----------------------------------------------
      * internal definitions
      *-----------------------------------------------
@@ -99,7 +111,7 @@
     void UT_Precondition(const char *cond_desc);
     void UT_Test(const bool test_cond, const char *cond_desc);
     void UT_SetComment(const char *comment);    
-
+    void UT_EnableHtml(char *cssname);
 #endif
 
 /** @} */
