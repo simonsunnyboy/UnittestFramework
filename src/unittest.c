@@ -73,7 +73,9 @@ void UT_Begin(const char *headline, const char *filename)
     {
         /* print header for HTML */
         printf("<!doctype html>\n");
+        printf("<html lang=\"en\">\n");
         printf("<head>\n");
+        printf("<meta http-equiv=\"content-type\" content=\"text/html; charset=UTF-8\">\n");
         printf("<title>Unittest report for &quot;%s&quot;</title>\n", headline);
         if(UT.cssname != NULL)
         {
